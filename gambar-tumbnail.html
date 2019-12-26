@@ -1,0 +1,189 @@
+<link href='https://cdn.statically.io/gh/insetindrra/senimanulisdemo/f55a9e88/senimanulis.css' rel='stylesheet'/>
+<div id="senimanulis">
+<div>
+  <section class="display">
+	<div class="mobile">
+	  <div class="trim">
+		<iframe id="mobile" src="https://senimanulis.blogspot.com/">
+		</iframe>
+	  </div>
+	</div>
+
+	<div class="tablet">
+	  <div class="trim">
+		<iframe id="tablet" src="https://senimanulis.blogspot.com/">
+		</iframe>
+	  </div>
+	</div>
+	<div class="laptop">
+	  <div class="trim">
+		<iframe id="laptop" src="https://senimanulis.blogspot.com/">
+		</iframe>
+	  </div>
+	</div>
+	<div class="desktop">
+	  <div class="trim">
+		<iframe id="desktop" src="https://senimanulis.blogspot.com/">
+		</iframe>
+	  </div>
+	</div>
+
+  </section>
+</div>
+<section class="url">
+  <h1>Masukan URL</h1>
+  <form id="rwdform" name="rwdform">
+	<input type="url" id="url" name="url" value="" placeholder="https://senimanulis.blogspot.com/">
+	<a class="button" href="#" onClick="ga('send', 'event', 'RWD', 'URL', document.rwdform.url.value);" >Ok!</a>
+  </form>
+  <div class="about-tool">
+  </div></section>
+<script>
+$(document).ready(function() {
+// Change iFrame on a Button Click Event
+    $(".button").click(function(event){
+        $("iframe").attr('src', $( '#url' ).val());
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    var a = 3;
+    $('.desktop,.laptop,.tablet,.mobile').draggable({
+   start: function(event, ui) { $(this).css("z-index", a++); }
+});
+    $('.display div').click(function() {
+        $(this).addClass('top').removeClass('bottom');
+        $(this).siblings().removeClass('top').addClass('bottom');
+        $(this).css("z-index", a++);
+
+    });
+});
+</script>
+<script>
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+var first = getUrlVars()["url"];
+var first = decodeURIComponent(first);
+var first = first.replace(/\#$/, '');
+
+if(first === "undefined") {
+  // don't do anything.
+}
+else {
+//  take the url variable and update the iframes and input field
+  $("iframe").attr('src',(first));
+  $('#url').attr('value',(first));
+  $.ajax({ url: 'xtest.php?url=' + first + '',
+           data: {action: first},
+           type: 'post',
+           success: function(output) {
+                        console.log(output);
+                        var returnedData = JSON.parse(output);
+                        if(returnedData.error === true){
+	                        $("#error").removeClass("hide").addClass("show");
+	                        console.log(returnedData.httpcode);
+                        }
+                        else {
+	                        $("#error").addClass("hide");
+                        }
+                    }
+  });
+}
+</script>
+<style>
+	.hide {display: none;}
+	
+  .show {    	display: block;
+			    position: fixed;
+			    top: 0;
+			    background-color: black;
+			    color: white;
+			    font-size: 1.4em;
+			    z-index: 100;
+      }
+
+
+.bsa-cpc {
+  position: relative;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  background-color: hsla(0, 0%, 0%, .8);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.bsa-cpc .default-ad {
+  display: none;
+}
+
+.bsa-cpc ._default_ {
+  display: block;
+  overflow: hidden;
+  padding: .7em 1em;
+  line-height: 1.5;
+}
+
+.bsa-cpc ._default_ > * {
+  vertical-align: middle;
+}
+
+.bsa-cpc a {
+  color: #fbf9fa;
+  text-decoration: none;
+}
+
+.bsa-cpc a:hover {
+  color: inherit;
+}
+
+.bsa-cpc .default-image {
+  display: inline-block;
+  margin-right: 6px;
+  line-height: 0;
+}
+
+.bsa-cpc .default-image img {
+  margin: 0;
+  width: auto;
+  height: 18px;
+  border-radius: 3px;
+}
+
+.bsa-cpc .default-title:after {
+  content: " — ";
+}
+
+.bsa-cpc .default-title,
+.bsa-cpc .default-description {
+  display: inline;
+}
+
+.bsa-cpc .default-title {
+  position: relative;
+  font-weight: 600;
+}
+
+.bsa-cpc .default-description:after {
+  position: relative;
+  top: -1px;
+  right: -8px;
+  padding: 2px 5px;
+  border: solid 1px #cc4e46;
+  border-radius: 3px;
+  color: #cc4e46;
+  content: "Ad";
+  text-transform: uppercase;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+}
+</style>
+</div>
