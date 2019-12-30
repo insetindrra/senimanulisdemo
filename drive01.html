@@ -1,0 +1,18 @@
+<div id="pesan">
+</div>
+<script>//<![CDATA[
+            var url = "https://drive.google.com/file/d/1JYQOiJE1cQICefYDkseOGxYhxUInj601/view?usp=drivesdk";
+            var count = 0;
+            function countDown() {
+                if (count > 0) {
+                    count--;
+                    var waktu = count + 1;
+                    $('#pesan').html(waktu);
+                    setTimeout("countDown()", 1000);
+                } else {
+                    window.location.href = url;
+                }
+            }
+            countDown();
+//]]>
+</script>
